@@ -1,0 +1,12 @@
+{
+  "name": "qrize",
+  "version": "0.0.1",
+  "description": "JavaScript client for qrize.me API",
+  "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/qrize/qrize",
+    "type": "git"
+  },
+  "author": "Sergey Goliney <sergey@goliney.com>",
+  "license": "MIT"
+}
