@@ -20,7 +20,7 @@
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "node test/test.js",
+    "test": "jest",
     "pretest": "npm-run-all eslint-check eslint build"
   },
   "dependencies": {},
@@ -32,6 +32,7 @@
     "eslint-config-prettier": "2.6.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-prettier": "2.3.1",
+    "jest-cli": "21.2.1",
     "npm-run-all": "4.1.1",
     "prettier": "1.7.4",
     "prettier-eslint": "8.2.1",
