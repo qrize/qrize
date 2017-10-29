@@ -25,8 +25,8 @@
     "dev": "rollup -c -w",
     "pretest": "npm-run-all eslint-check eslint build",
     "test": "jest",
-    "report-coverage": "cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
-    "test:CI": "npm-run-all test report-coverage"
+    "test:coverage": "npm run test -- --coverage",
+    "test:report": "cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {},
   "devDependencies": {
