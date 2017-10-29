@@ -1,11 +1,11 @@
 language: node_js
 node_js:
   - "8"
-  - "7"
-  - "6"
-  - "5"
-  - "4"
 cache:
   yarn: true
   directories:
     - "node_modules"
+script: yarn run test:coverage
+after_success:
+  # Send coverage data to coveralls.
+  - yarn run test:report
