@@ -20,7 +20,7 @@
   "scripts": {
     "prettier": "prettier --write src/**/* test/**/*",
     "eslint": "eslint src/**/* test/**/*",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "pretest": "npm-run-all eslint-check eslint build",
@@ -37,6 +37,7 @@
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-config-prettier": "2.6.0",
     "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-json": "1.2.0",
     "eslint-plugin-prettier": "2.3.1",
     "jest-cli": "21.2.1",
     "npm-run-all": "4.1.1",

@@ -1,0 +1,4 @@
+{
+  "getHash": "http://qrize.me/get-hash/<url>",
+  "getUrl": "http://qrize.me/get-url/<hash>"
+}
