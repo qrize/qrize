@@ -5,6 +5,7 @@
     "prettier"
   ],
   "plugins": [
+    "json",
     "prettier"
   ],
   "rules": {

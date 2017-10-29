@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  collectCoverageFrom: ["src/**/*"],
+  collectCoverageFrom: ["src/**/*.js"],
   coverageThreshold: {
     global: {
       branches: 100,
