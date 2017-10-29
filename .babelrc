@@ -2,12 +2,29 @@
   "ignore": ["node_modules/**/*"],
   "presets": [
     [
-      "env", {
+      "env",
+      {
         "targets": {
           "browsers": ["last 2 versions", "safari >= 7"]
         },
         "modules": false
       }
     ]
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": ["last 2 versions", "safari >= 7"]
+            },
+            "modules": "commonjs"
+          }
+        ],
+        "jest"
+      ]
+    }
+  }
 }
