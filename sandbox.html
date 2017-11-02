@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>qrize sandbox</title>
+  <script src="./dist/qrize.umd.js" type='text/javascript'></script>
+</head>
+<body>
+  <figure>
+    <div id="target"></div>
+    <figcaption>Generated QR</figcaption>
+  </figure>
+
+  <script type='text/javascript' defer>
+    var qr = new Qrize({
+      element: document.getElementById('target'),
+      cellSize: 4
+    });
+
+    qr.createSvg('http://goliney.com', function(status, text) {
+      console.log('Bad luck: ', status, text);
+    });
+  </script>
+</body>
+</html>

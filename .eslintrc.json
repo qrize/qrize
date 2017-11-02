@@ -1,5 +1,9 @@
 {
   "root": true,
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "extends": [
     "airbnb-base",
     "prettier"
@@ -9,6 +13,7 @@
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "class-methods-use-this": "off"
   }
 }
