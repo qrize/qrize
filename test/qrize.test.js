@@ -1,8 +1,14 @@
 import Qrize from "../src/main";
 import pkg from "../package.json";
 
-const qrize = new Qrize();
+let qrize;
+let element;
 
-test("Version", () => {
+beforeEach(() => {
+  element = document.createElement("div");
+  qrize = new Qrize({ element });
+});
+
+test("has version", () => {
   expect(qrize.version).toBe(pkg.version);
 });

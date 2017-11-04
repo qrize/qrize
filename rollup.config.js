@@ -19,10 +19,7 @@ export default [
       commonjs(),
       babel({
         exclude: ["node_modules/*"],
-        plugins: [
-          "external-helpers",
-          ["transform-builtin-classes", { globals: ["Error"] }]
-        ]
+        plugins: ["external-helpers"]
       })
     ]
   },
@@ -43,10 +40,7 @@ export default [
       json(),
       babel({
         exclude: ["node_modules/*"],
-        plugins: [
-          "external-helpers",
-          ["transform-builtin-classes", { globals: ["Error"] }]
-        ]
+        plugins: ["external-helpers"]
       })
     ]
   }

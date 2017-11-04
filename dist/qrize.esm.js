@@ -36,15 +36,65 @@ var ERROR_CORRECTION_LEVELS = {
   H: 4 // 30%
 };
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
+function isNumber(value) {
+  return !Number.isNaN(parseInt(value, 10));
+}
 
+function isInteger(value) {
+  return isNumber(value) && !(value % 1);
+}
 
+function validateElementOption(element) {
+  if (!(element instanceof Element)) {
+    throw new TypeError("Invalid \"element\": " + element + ". Must be an instance of Element");
+  }
+}
 
+function validateCellSizeOption(cellSize) {
+  if (!isNumber(cellSize)) {
+    throw new TypeError("Invalid \"cellSize\": " + cellSize + ". Must be a number");
+  }
 
+  if (cellSize < 0) {
+    throw new RangeError("Invalid \"cellSize\": " + cellSize + ". Must be greater than zero");
+  }
+}
+
+function validateMarginOption(margin) {
+  if (!isNumber(margin)) {
+    throw new TypeError("Invalid \"margin\": " + margin + ". Must be a number");
+  }
+
+  if (margin < 0) {
+    throw new RangeError("Invalid \"margin\": " + margin + ". Must be greater than zero");
+  }
+}
+
+function validateVersionOption(version) {
+  if (!isInteger(version)) {
+    throw new TypeError("Invalid \"version\": " + version + ". Must be an integer");
+  }
+
+  if (!(version >= 0 && version <= 40)) {
+    throw new RangeError("Invalid \"version\": " + version + ". Must be between 0 and 40");
+  }
+}
+
+function validateLevelOption(level) {
+  if (!ERROR_CORRECTION_LEVELS[level]) {
+    var validValues = Object.keys(ERROR_CORRECTION_LEVELS).join(", ");
+    throw new Error("Invalid error correction level: " + this.value + ". " + ("Should be one of these: " + validValues));
+  }
+}
+
+function validateOptions(options) {
+  validateElementOption(options.element);
+  validateCellSizeOption(options.cellSize);
+  validateMarginOption(options.margin);
+  validateVersionOption(options.version);
+  validateLevelOption(options.level);
+  return true;
+}
 
 var asyncGenerator = function () {
   function AwaitValue(value) {
@@ -187,187 +237,6 @@ var createClass = function () {
   };
 }();
 
-
-
-
-
-
-
-
-
-var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-
-
-
-
-
-
-
-
-
-
-var possibleConstructorReturn = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-};
-
-var _fixBabelExtend = function (O) {
-  var gOPD = O.getOwnPropertyDescriptor,
-      gPO = O.getPrototypeOf || function (o) {
-    return o.__proto__;
-  },
-      sPO = O.setPrototypeOf || function (o, p) {
-    o.__proto__ = p;
-    return o;
-  },
-      construct = (typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === 'object' ? Reflect.construct : function (Parent, args, Class) {
-    var Constructor,
-        a = [null];
-    a.push.apply(a, args);
-    Constructor = Parent.bind.apply(Parent, a);
-    return sPO(new Constructor(), Class.prototype);
-  };
-
-  return function fixBabelExtend(Class) {
-    var Parent = gPO(Class);
-    return sPO(Class, sPO(function Super() {
-      return construct(Parent, arguments, gPO(this).constructor);
-    }, Parent));
-  };
-}(Object);
-
-var BaseException = _fixBabelExtend(function (_Error) {
-  inherits(BaseException, _Error);
-
-  function BaseException(value) {
-    classCallCheck(this, BaseException);
-
-    var _this = possibleConstructorReturn(this, (BaseException.__proto__ || Object.getPrototypeOf(BaseException)).call(this));
-
-    _this.value = value;
-    return _this;
-  }
-
-  return BaseException;
-}(Error));
-
-var InvalidErrorCorrectionLevel = function (_BaseException) {
-  inherits(InvalidErrorCorrectionLevel, _BaseException);
-
-  function InvalidErrorCorrectionLevel() {
-    classCallCheck(this, InvalidErrorCorrectionLevel);
-    return possibleConstructorReturn(this, (InvalidErrorCorrectionLevel.__proto__ || Object.getPrototypeOf(InvalidErrorCorrectionLevel)).apply(this, arguments));
-  }
-
-  createClass(InvalidErrorCorrectionLevel, [{
-    key: "message",
-    get: function get() {
-      return "Invalid error correction level: " + this.value + ". " + ("Should be one of these: " + Object.keys(ERROR_CORRECTION_LEVELS));
-    }
-  }]);
-  return InvalidErrorCorrectionLevel;
-}(BaseException);
-
-var InvalidQRVersion = function (_BaseException2) {
-  inherits(InvalidQRVersion, _BaseException2);
-
-  function InvalidQRVersion() {
-    classCallCheck(this, InvalidQRVersion);
-    return possibleConstructorReturn(this, (InvalidQRVersion.__proto__ || Object.getPrototypeOf(InvalidQRVersion)).apply(this, arguments));
-  }
-
-  createClass(InvalidQRVersion, [{
-    key: "message",
-    get: function get() {
-      return "Invalid version: " + this.value + ". " + "Should be an integer from 1 to 40, or 0 for auto detection";
-    }
-  }]);
-  return InvalidQRVersion;
-}(BaseException);
-
-var InvalidElement = function (_BaseException3) {
-  inherits(InvalidElement, _BaseException3);
-
-  function InvalidElement() {
-    classCallCheck(this, InvalidElement);
-    return possibleConstructorReturn(this, (InvalidElement.__proto__ || Object.getPrototypeOf(InvalidElement)).apply(this, arguments));
-  }
-
-  createClass(InvalidElement, [{
-    key: "message",
-    get: function get() {
-      return "Invalid element: " + this.value + ". Should be an instance of Element";
-    }
-  }]);
-  return InvalidElement;
-}(BaseException);
-
-var InvalidOptions = function (_BaseException4) {
-  inherits(InvalidOptions, _BaseException4);
-
-  function InvalidOptions() {
-    classCallCheck(this, InvalidOptions);
-    return possibleConstructorReturn(this, (InvalidOptions.__proto__ || Object.getPrototypeOf(InvalidOptions)).apply(this, arguments));
-  }
-
-  createClass(InvalidOptions, [{
-    key: "message",
-    get: function get() {
-      return "Invalid options. Reinitialize Qrize with valid options in order to use it's features";
-    }
-  }]);
-  return InvalidOptions;
-}(BaseException);
-
-function validateOptions(options) {
-  var element = options.element,
-      version = options.version,
-      level = options.level,
-      cellSize = options.cellSize,
-      margin = options.margin;
-
-
-  if (!(element instanceof Element)) {
-    throw new InvalidElement(element);
-  }
-
-  if (!(version >= 0 && version <= 40)) {
-    throw new InvalidQRVersion(version);
-  }
-
-  if (!ERROR_CORRECTION_LEVELS[level]) {
-    throw new InvalidErrorCorrectionLevel(level);
-  }
-
-  if (Number.isNaN(parseInt(cellSize, 10))) {
-    throw new TypeError("Invalid \"cellSize\": " + cellSize + ". Should be an integer");
-  }
-
-  if (Number.isNaN(parseInt(margin, 10))) {
-    throw new TypeError("Invalid \"margin\": " + margin + ". Should be an integer");
-  }
-
-  return true;
-}
-
 var Qrize = function () {
   function Qrize() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -375,15 +244,18 @@ var Qrize = function () {
 
     this.version = version;
 
+    // 'version' and 'level' are hardcoded,
+    // as URLs we code have the same length always
     this.options = {
       element: options.element,
-      version: options.version || 0,
-      level: options.level || "L",
       cellSize: options.cellSize || 2,
-      margin: options.margin || 4 // usually 2*cellSize
+      margin: options.margin || 0,
+      version: 0,
+      level: "L"
     };
 
-    this.valid = validateOptions(this.options);
+    // throws errors if invalid
+    validateOptions(this.options);
 
     this.qr = qrcode(this.options.version, this.options.level);
   }
@@ -392,10 +264,6 @@ var Qrize = function () {
     key: "prepareQR",
     value: function prepareQR(url, onSuccess, onFailure) {
       var _this = this;
-
-      if (!this.valid) {
-        throw new InvalidOptions();
-      }
 
       Qrize.getHash(url || Qrize.getDefaultURL(), function (response) {
         var redirectorUrl = ENDPOINTS.redirector.replace("<hash>", response.hash);
@@ -412,6 +280,7 @@ var Qrize = function () {
       this.prepareQR(url, function () {
         _this2.options.element.innerHTML = _this2.qr.createSvgTag(_this2.options.cellSize, _this2.options.margin);
       }, onFailure);
+      return this;
     }
   }, {
     key: "createImg",
@@ -421,6 +290,7 @@ var Qrize = function () {
       this.prepareQR(url, function () {
         _this3.options.element.innerHTML = _this3.qr.createImgTag(_this3.options.cellSize, _this3.options.margin);
       }, onFailure);
+      return this;
     }
   }, {
     key: "createTable",
@@ -430,6 +300,7 @@ var Qrize = function () {
       this.prepareQR(url, function () {
         _this4.options.element.innerHTML = _this4.qr.createTableTag(_this4.options.cellSize, _this4.options.margin);
       }, onFailure);
+      return this;
     }
   }], [{
     key: "getDefaultURL",

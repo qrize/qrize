@@ -1,23 +1,25 @@
 import qrcode from "qrcode-generator";
 import { version as pkgVersion } from "../package.json";
 import { getJSON } from "./requests";
-import { InvalidOptions } from "./exceptions";
 import * as constants from "./constants";
-import validateOptions from "./validators";
+import { validateOptions } from "./validators";
 
 export default class Qrize {
   constructor(options = {}) {
     this.version = pkgVersion;
 
+    // 'version' and 'level' are hardcoded,
+    // as URLs we code have the same length always
     this.options = {
       element: options.element,
-      version: options.version || 0,
-      level: options.level || "L",
       cellSize: options.cellSize || 2,
-      margin: options.margin || 4 // usually 2*cellSize
+      margin: options.margin || 0,
+      version: 0,
+      level: "L"
     };
 
-    this.valid = validateOptions(this.options);
+    // throws errors if invalid
+    validateOptions(this.options);
 
     this.qr = qrcode(this.options.version, this.options.level);
   }
@@ -38,10 +40,6 @@ export default class Qrize {
   }
 
   prepareQR(url, onSuccess, onFailure) {
-    if (!this.valid) {
-      throw new InvalidOptions();
-    }
-
     Qrize.getHash(
       url || Qrize.getDefaultURL(),
       response => {
@@ -68,6 +66,7 @@ export default class Qrize {
       },
       onFailure
     );
+    return this;
   }
 
   createImg(url, onFailure) {
@@ -81,6 +80,7 @@ export default class Qrize {
       },
       onFailure
     );
+    return this;
   }
 
   createTable(url, onFailure) {
@@ -94,5 +94,6 @@ export default class Qrize {
       },
       onFailure
     );
+    return this;
   }
 }
