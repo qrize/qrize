@@ -18,8 +18,8 @@
     "dist"
   ],
   "scripts": {
-    "prettier": "prettier --write src/**/* test/**/*",
-    "eslint": "eslint src/**/* test/**/*",
+    "prettier": "prettier --write src/**/*.js test/**/*.js",
+    "eslint": "eslint src/**/*.js test/**/*.js",
     "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
     "build": "rollup -c",
     "dev": "rollup -c -w",

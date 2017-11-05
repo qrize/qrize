@@ -2,25 +2,32 @@ import qrcode from 'qrcode-generator';
 
 var version = "0.0.1";
 
-function simpleHttpRequest(method, url, success, failure) {
+function prepareCallback(callback) {
+  return typeof callback === "function" ? callback : function () {};
+}
+
+function simpleHttpRequest(method, url, onSuccess, onFailure) {
+  var success = prepareCallback(onSuccess);
+  var failure = prepareCallback(onFailure);
   var request = new XMLHttpRequest();
   request.open(method, url, true);
   request.send(null);
-  request.onreadystatechange = function onreadystatechange() {
+  request.onreadystatechange = function onReadyStateChange() {
     if (request.readyState === 4) {
-      if (request.status === 200) success(request.responseText);else if (failure) failure(request.status, request.statusText);
+      if (request.status === 200) success(request.responseText);else failure(request.status, request.responseText);
     }
   };
 }
 
-function get(url, success, failure) {
-  simpleHttpRequest("GET", url, success, failure);
+function get(url, onSuccess, onFailure) {
+  simpleHttpRequest("GET", url, onSuccess, onFailure);
 }
 
-function getJSON(url, success, failure) {
+function getJSON(url, onSuccess, onFailure) {
+  var success = prepareCallback(onSuccess);
   get(url, function (response) {
-    success(JSON.parse(response));
-  }, failure);
+    return success(JSON.parse(response));
+  }, onFailure);
 }
 
 var ENDPOINTS = {
@@ -265,40 +272,47 @@ var Qrize = function () {
     value: function prepareQR(url, onSuccess, onFailure) {
       var _this = this;
 
+      var success = prepareCallback(onSuccess);
       Qrize.getHash(url || Qrize.getDefaultURL(), function (response) {
         var redirectorUrl = ENDPOINTS.redirector.replace("<hash>", response.hash);
         _this.qr.addData(redirectorUrl);
         _this.qr.make();
-        onSuccess();
+        success();
       }, onFailure);
     }
   }, {
     key: "createSvg",
-    value: function createSvg(url, onFailure) {
+    value: function createSvg(url, onSuccess, onFailure) {
       var _this2 = this;
 
+      var success = prepareCallback(onSuccess);
       this.prepareQR(url, function () {
         _this2.options.element.innerHTML = _this2.qr.createSvgTag(_this2.options.cellSize, _this2.options.margin);
+        success();
       }, onFailure);
       return this;
     }
   }, {
     key: "createImg",
-    value: function createImg(url, onFailure) {
+    value: function createImg(url, onSuccess, onFailure) {
       var _this3 = this;
 
+      var success = prepareCallback(onSuccess);
       this.prepareQR(url, function () {
         _this3.options.element.innerHTML = _this3.qr.createImgTag(_this3.options.cellSize, _this3.options.margin);
+        success();
       }, onFailure);
       return this;
     }
   }, {
     key: "createTable",
-    value: function createTable(url, onFailure) {
+    value: function createTable(url, onSuccess, onFailure) {
       var _this4 = this;
 
+      var success = prepareCallback(onSuccess);
       this.prepareQR(url, function () {
         _this4.options.element.innerHTML = _this4.qr.createTableTag(_this4.options.cellSize, _this4.options.margin);
+        success();
       }, onFailure);
       return this;
     }

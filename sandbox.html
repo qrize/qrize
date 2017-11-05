@@ -18,9 +18,15 @@
       cellSize: 5,
     });
 
-    qr.createSvg('http://qrize.me', function(status, text) {
-      console.log('Bad luck: ', status, text);
-    });
+    qr.createImg(
+      'http://qrize.me',
+      function onQrizeSuccess() {
+        console.log('Success');
+      },
+      function onQrizeFailure(status, text) {
+        console.log('Failure: ', status, text);
+      }
+    );
   </script>
 </body>
 </html>

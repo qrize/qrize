@@ -1,6 +1,6 @@
 import qrcode from "qrcode-generator";
 import { version as pkgVersion } from "../package.json";
-import { getJSON } from "./requests";
+import { getJSON, prepareCallback } from "./requests";
 import * as constants from "./constants";
 import { validateOptions } from "./validators";
 
@@ -40,6 +40,7 @@ export default class Qrize {
   }
 
   prepareQR(url, onSuccess, onFailure) {
+    const success = prepareCallback(onSuccess);
     Qrize.getHash(
       url || Qrize.getDefaultURL(),
       response => {
@@ -49,13 +50,14 @@ export default class Qrize {
         );
         this.qr.addData(redirectorUrl);
         this.qr.make();
-        onSuccess();
+        success();
       },
       onFailure
     );
   }
 
-  createSvg(url, onFailure) {
+  createSvg(url, onSuccess, onFailure) {
+    const success = prepareCallback(onSuccess);
     this.prepareQR(
       url,
       () => {
@@ -63,13 +65,15 @@ export default class Qrize {
           this.options.cellSize,
           this.options.margin
         );
+        success();
       },
       onFailure
     );
     return this;
   }
 
-  createImg(url, onFailure) {
+  createImg(url, onSuccess, onFailure) {
+    const success = prepareCallback(onSuccess);
     this.prepareQR(
       url,
       () => {
@@ -77,13 +81,15 @@ export default class Qrize {
           this.options.cellSize,
           this.options.margin
         );
+        success();
       },
       onFailure
     );
     return this;
   }
 
-  createTable(url, onFailure) {
+  createTable(url, onSuccess, onFailure) {
+    const success = prepareCallback(onSuccess);
     this.prepareQR(
       url,
       () => {
@@ -91,6 +97,7 @@ export default class Qrize {
           this.options.cellSize,
           this.options.margin
         );
+        success();
       },
       onFailure
     );
