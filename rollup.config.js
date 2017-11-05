@@ -12,8 +12,16 @@ export default [
       file: pkg.browser,
       format: "umd"
     },
-    name: "qrize",
-    plugins: [json(), resolve(), commonjs(), babel()]
+    name: "Qrize",
+    plugins: [
+      json(),
+      resolve(),
+      commonjs(),
+      babel({
+        exclude: ["node_modules/*"],
+        plugins: ["external-helpers"]
+      })
+    ]
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
@@ -28,6 +36,12 @@ export default [
       { file: pkg.main, format: "cjs" },
       { file: pkg.module, format: "es" }
     ],
-    plugins: [json(), babel()]
+    plugins: [
+      json(),
+      babel({
+        exclude: ["node_modules/*"],
+        plugins: ["external-helpers"]
+      })
+    ]
   }
 ];
