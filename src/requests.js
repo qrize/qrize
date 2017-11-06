@@ -2,7 +2,7 @@ export function prepareCallback(callback) {
   return typeof callback === "function" ? callback : () => {};
 }
 
-export function simpleHttpRequest(method, url, onSuccess, onFailure) {
+export function simpleHttpRequest({ method, url, onSuccess, onFailure }) {
   const success = prepareCallback(onSuccess);
   const failure = prepareCallback(onFailure);
   const request = new XMLHttpRequest();
@@ -16,11 +16,20 @@ export function simpleHttpRequest(method, url, onSuccess, onFailure) {
   };
 }
 
-export function get(url, onSuccess, onFailure) {
-  simpleHttpRequest("GET", url, onSuccess, onFailure);
+export function get({ url, onSuccess, onFailure }) {
+  simpleHttpRequest({
+    method: "GET",
+    url,
+    onSuccess,
+    onFailure
+  });
 }
 
-export function getJSON(url, onSuccess, onFailure) {
+export function getJSON({ url, onSuccess, onFailure }) {
   const success = prepareCallback(onSuccess);
-  get(url, response => success(JSON.parse(response)), onFailure);
+  get({
+    url,
+    onSuccess: response => success(JSON.parse(response)),
+    onFailure
+  });
 }

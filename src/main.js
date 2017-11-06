@@ -28,22 +28,25 @@ export default class Qrize {
     return window.location.href;
   }
 
-  static getUrl(hash, onSuccess, onFailure) {
+  static getUrl(params) {
+    const { hash, onSuccess, onFailure } = params;
     const apiUrl = constants.ENDPOINTS.getUrl.replace("<hash>", hash);
-    getJSON(apiUrl, onSuccess, onFailure);
+    getJSON({ url: apiUrl, onSuccess, onFailure });
   }
 
-  static getHash(url, onSuccess, onFailure) {
+  static getHash(params) {
+    const { url, onSuccess, onFailure } = params;
     const encodedUrl = encodeURIComponent(url);
     const apiUrl = constants.ENDPOINTS.getHash.replace("<url>", encodedUrl);
-    getJSON(apiUrl, onSuccess, onFailure);
+    getJSON({ url: apiUrl, onSuccess, onFailure });
   }
 
-  prepareQR(url, onSuccess, onFailure) {
+  prepareQR(params = {}) {
+    const { url, onSuccess, onFailure } = params;
     const success = prepareCallback(onSuccess);
-    Qrize.getHash(
-      url || Qrize.getDefaultURL(),
-      response => {
+    Qrize.getHash({
+      url: url || Qrize.getDefaultURL(),
+      onSuccess: response => {
         const redirectorUrl = constants.ENDPOINTS.redirector.replace(
           "<hash>",
           response.hash
@@ -53,14 +56,15 @@ export default class Qrize {
         success();
       },
       onFailure
-    );
+    });
   }
 
-  createSvg(url, onSuccess, onFailure) {
+  createSvg(params = {}) {
+    const { url, onSuccess, onFailure } = params;
     const success = prepareCallback(onSuccess);
-    this.prepareQR(
+    this.prepareQR({
       url,
-      () => {
+      onSuccess: () => {
         this.options.element.innerHTML = this.qr.createSvgTag(
           this.options.cellSize,
           this.options.margin
@@ -68,15 +72,16 @@ export default class Qrize {
         success();
       },
       onFailure
-    );
+    });
     return this;
   }
 
-  createImg(url, onSuccess, onFailure) {
+  createImg(params = {}) {
+    const { url, onSuccess, onFailure } = params;
     const success = prepareCallback(onSuccess);
-    this.prepareQR(
+    this.prepareQR({
       url,
-      () => {
+      onSuccess: () => {
         this.options.element.innerHTML = this.qr.createImgTag(
           this.options.cellSize,
           this.options.margin
@@ -84,15 +89,16 @@ export default class Qrize {
         success();
       },
       onFailure
-    );
+    });
     return this;
   }
 
-  createTable(url, onSuccess, onFailure) {
+  createTable(params = {}) {
+    const { url, onSuccess, onFailure } = params;
     const success = prepareCallback(onSuccess);
-    this.prepareQR(
+    this.prepareQR({
       url,
-      () => {
+      onSuccess: () => {
         this.options.element.innerHTML = this.qr.createTableTag(
           this.options.cellSize,
           this.options.margin
@@ -100,7 +106,7 @@ export default class Qrize {
         success();
       },
       onFailure
-    );
+    });
     return this;
   }
 }

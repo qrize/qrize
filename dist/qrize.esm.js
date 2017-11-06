@@ -6,7 +6,12 @@ function prepareCallback(callback) {
   return typeof callback === "function" ? callback : function () {};
 }
 
-function simpleHttpRequest(method, url, onSuccess, onFailure) {
+function simpleHttpRequest(_ref) {
+  var method = _ref.method,
+      url = _ref.url,
+      onSuccess = _ref.onSuccess,
+      onFailure = _ref.onFailure;
+
   var success = prepareCallback(onSuccess);
   var failure = prepareCallback(onFailure);
   var request = new XMLHttpRequest();
@@ -19,15 +24,32 @@ function simpleHttpRequest(method, url, onSuccess, onFailure) {
   };
 }
 
-function get(url, onSuccess, onFailure) {
-  simpleHttpRequest("GET", url, onSuccess, onFailure);
+function get(_ref2) {
+  var url = _ref2.url,
+      onSuccess = _ref2.onSuccess,
+      onFailure = _ref2.onFailure;
+
+  simpleHttpRequest({
+    method: "GET",
+    url: url,
+    onSuccess: onSuccess,
+    onFailure: onFailure
+  });
 }
 
-function getJSON(url, onSuccess, onFailure) {
+function getJSON(_ref3) {
+  var url = _ref3.url,
+      onSuccess = _ref3.onSuccess,
+      onFailure = _ref3.onFailure;
+
   var success = prepareCallback(onSuccess);
-  get(url, function (response) {
-    return success(JSON.parse(response));
-  }, onFailure);
+  get({
+    url: url,
+    onSuccess: function onSuccess(response) {
+      return success(JSON.parse(response));
+    },
+    onFailure: onFailure
+  });
 }
 
 var ENDPOINTS = {
@@ -269,51 +291,87 @@ var Qrize = function () {
 
   createClass(Qrize, [{
     key: "prepareQR",
-    value: function prepareQR(url, onSuccess, onFailure) {
+    value: function prepareQR() {
       var _this = this;
 
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var url = params.url,
+          onSuccess = params.onSuccess,
+          onFailure = params.onFailure;
+
       var success = prepareCallback(onSuccess);
-      Qrize.getHash(url || Qrize.getDefaultURL(), function (response) {
-        var redirectorUrl = ENDPOINTS.redirector.replace("<hash>", response.hash);
-        _this.qr.addData(redirectorUrl);
-        _this.qr.make();
-        success();
-      }, onFailure);
+      Qrize.getHash({
+        url: url || Qrize.getDefaultURL(),
+        onSuccess: function onSuccess(response) {
+          var redirectorUrl = ENDPOINTS.redirector.replace("<hash>", response.hash);
+          _this.qr.addData(redirectorUrl);
+          _this.qr.make();
+          success();
+        },
+        onFailure: onFailure
+      });
     }
   }, {
     key: "createSvg",
-    value: function createSvg(url, onSuccess, onFailure) {
+    value: function createSvg() {
       var _this2 = this;
 
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var url = params.url,
+          onSuccess = params.onSuccess,
+          onFailure = params.onFailure;
+
       var success = prepareCallback(onSuccess);
-      this.prepareQR(url, function () {
-        _this2.options.element.innerHTML = _this2.qr.createSvgTag(_this2.options.cellSize, _this2.options.margin);
-        success();
-      }, onFailure);
+      this.prepareQR({
+        url: url,
+        onSuccess: function onSuccess() {
+          _this2.options.element.innerHTML = _this2.qr.createSvgTag(_this2.options.cellSize, _this2.options.margin);
+          success();
+        },
+        onFailure: onFailure
+      });
       return this;
     }
   }, {
     key: "createImg",
-    value: function createImg(url, onSuccess, onFailure) {
+    value: function createImg() {
       var _this3 = this;
 
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var url = params.url,
+          onSuccess = params.onSuccess,
+          onFailure = params.onFailure;
+
       var success = prepareCallback(onSuccess);
-      this.prepareQR(url, function () {
-        _this3.options.element.innerHTML = _this3.qr.createImgTag(_this3.options.cellSize, _this3.options.margin);
-        success();
-      }, onFailure);
+      this.prepareQR({
+        url: url,
+        onSuccess: function onSuccess() {
+          _this3.options.element.innerHTML = _this3.qr.createImgTag(_this3.options.cellSize, _this3.options.margin);
+          success();
+        },
+        onFailure: onFailure
+      });
       return this;
     }
   }, {
     key: "createTable",
-    value: function createTable(url, onSuccess, onFailure) {
+    value: function createTable() {
       var _this4 = this;
 
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var url = params.url,
+          onSuccess = params.onSuccess,
+          onFailure = params.onFailure;
+
       var success = prepareCallback(onSuccess);
-      this.prepareQR(url, function () {
-        _this4.options.element.innerHTML = _this4.qr.createTableTag(_this4.options.cellSize, _this4.options.margin);
-        success();
-      }, onFailure);
+      this.prepareQR({
+        url: url,
+        onSuccess: function onSuccess() {
+          _this4.options.element.innerHTML = _this4.qr.createTableTag(_this4.options.cellSize, _this4.options.margin);
+          success();
+        },
+        onFailure: onFailure
+      });
       return this;
     }
   }], [{
@@ -323,16 +381,24 @@ var Qrize = function () {
     }
   }, {
     key: "getUrl",
-    value: function getUrl(hash, onSuccess, onFailure) {
+    value: function getUrl(params) {
+      var hash = params.hash,
+          onSuccess = params.onSuccess,
+          onFailure = params.onFailure;
+
       var apiUrl = ENDPOINTS.getUrl.replace("<hash>", hash);
-      getJSON(apiUrl, onSuccess, onFailure);
+      getJSON({ url: apiUrl, onSuccess: onSuccess, onFailure: onFailure });
     }
   }, {
     key: "getHash",
-    value: function getHash(url, onSuccess, onFailure) {
+    value: function getHash(params) {
+      var url = params.url,
+          onSuccess = params.onSuccess,
+          onFailure = params.onFailure;
+
       var encodedUrl = encodeURIComponent(url);
       var apiUrl = ENDPOINTS.getHash.replace("<url>", encodedUrl);
-      getJSON(apiUrl, onSuccess, onFailure);
+      getJSON({ url: apiUrl, onSuccess: onSuccess, onFailure: onFailure });
     }
   }]);
   return Qrize;
