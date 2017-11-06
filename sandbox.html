@@ -18,15 +18,15 @@
       cellSize: 5,
     });
 
-    qr.createImg(
-      'http://qrize.me',
-      function onQrizeSuccess() {
+    qr.createImg({
+      url: 'http://qrize.me',
+      onSuccess: function onQrizeSuccess() {
         console.log('Success');
       },
-      function onQrizeFailure(status, text) {
+      onFailure: function onQrizeFailure(status, text) {
         console.log('Failure: ', status, text);
       }
-    );
+    });
   </script>
 </body>
 </html>
