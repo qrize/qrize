@@ -46,10 +46,10 @@ import Qrize from "qrize";
 const qrize = new Qrize({
   element: document.getElementById("qr-target")
 });
-qrize.createImg();
+qrize.createImg({ url: "http://example.com" });
 ```
 
-That's it. The element with id `#qr-target` will contain `<img>` tag representing a QR code that leads to current location (`window.location.href`). You can set any custom URL. Instead of `<img>` tag you can draw the QR code using `<svg>` or `<table>`. See [API](#user-content-api) section for details.
+That's it. An element with id `#qr-target` will contain `<img>` tag representing a QR code that leads to http://example.com.
 
 If you use UMD package from CDN, `Qrize` constuctor is available globally.
 
