@@ -79,7 +79,7 @@ Each method can take (not requred) an options object with following parameters:
 |-----------|----------|----------|-------------------------------------------------------------------------------------------------------|
 | url       | String   | no       | A URL that QR code will lead to. Defaults to a current page address. Default: `window.location.href`. |
 | onSuccess | Function | no       | A callback that will be called after successful QR code build.                                        |
-| onFailure | Function | no       | A callback that will be called after attempt to build a QR code has been failed.                      |
+| onFailure | Function | no       | A callback that will be called after an attempt to build a QR code has been failed.                      |
 
 ### Static Methods
 
