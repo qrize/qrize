@@ -43,7 +43,7 @@ To install qrize with npm, run:
 npm install --save qrize
 ```
 
-If you don’t want to use npm to manage client packages, `qrize` package also provides single-file distributions, which is hosted on a CDN:
+If you don’t want to use npm to manage client packages, `qrize` package also provides a single-file distribution, which is hosted on a CDN:
 
 ```html
 <script src="https://unpkg.com/qrize/dist/qrize.umd.js"></script>
