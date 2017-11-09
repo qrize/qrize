@@ -15,7 +15,7 @@ Compare these QR codes that lead to the same [long address](https://www.amazon.c
 |-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | ![Regular QR code](https://raw.githubusercontent.com/qrize/qrize/assets/big_qr.gif) | ![QR code you get with qrize](https://raw.githubusercontent.com/qrize/qrize/assets/qrized1.gif) |
 
-Having QR codes smaller makes it more reader-friendly, saves space on page and is awesome.
+Having QR codes smaller makes it more reader-friendly, saves space on page and is awesome. Visit [qrize.me](http://qrize.me) for general information.
 
 
 ## How to install?
