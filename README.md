@@ -5,6 +5,17 @@
 
 JavaScript client for generating **tiny** QR codes of your web pages.
 
+## Table of Contents
+
+- [Why qrize?](#why-qrize)
+- [How to install?](#how-to-install)
+- [How to use?](#how-to-use)
+- [API](#api)
+  - [Constructor](#constructor)
+  - [Methods](#methods)
+  - [Static Methods](#static-methods)
+- [License](#license)
+
 ## Why qrize?
 
 `qrize` integrates with URL shortener service, giving you tiny QR codes no matter how long a URL is.
