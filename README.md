@@ -93,7 +93,7 @@ There are also static `Qrize` methods that communicate with `qrize.me` API direc
 | onSuccess | Function | no       | A callback that will be called on successful API response. Is invoked with an object that has two properties: `hash` and provided `url`. |
 | onFailure | Function | no       | A callback that will be called if request failed. Is invoked with two arguments: error status code and error message.                    |
 
-- `getUrl()` - get URL of the given hash id. Params
+- `getUrl()` - get URL of the given hash id. Options properties:
 
 | Name      | Type     | Required | Description                                                                                                                              |
 |-----------|----------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
