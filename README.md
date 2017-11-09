@@ -57,37 +57,11 @@ If you use UMD package from CDN, `Qrize` constuctor is available globally.
 
 `Qrize` constuctor takes an options object as a parameter and these are available properties:
 
-<table>
-<thead>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Required</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>element</td>
-    <td>DOM Element</td>
-    <td>yes</td>
-    <td>Container element for the generated QR code.</td>
-  </tr>
-  <tr>
-    <td>cellSize</td>
-    <td>Number</td>
-    <td>no</td>
-    <td>Size of each grid cell in pixels. Default: `2`.</td>
-  </tr>
-  </tr>
-  <tr>
-    <td>margin</td>
-    <td>Number</td>
-    <td>no</td>
-    <td>Margin size around the QR code in pixels. Note that you might want to leave some space around your QR code in order to make it readable. Default: `0`.</td>
-  </tr>
-</tbody>
-</table>
+| Name     | Type        | Required | Description                                                                                                                                            |
+|----------|-------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| element  | DOM Element | yes      | Container element for the generated QR code.                                                                                                           |
+| cellSize | Number      | no       | Size of each grid cell in pixels. Default: `2`.                                                                                                        |
+| margin   | Number      | no       | Margin size around the QR code in pixels. Note that you might want to leave some space around your QR code in order to make it readable. Default: `0`. |
 
 Instantiated object returned by `new Qrize()` has three methods with pretty straightforward purposes:
 
@@ -97,104 +71,29 @@ Instantiated object returned by `new Qrize()` has three methods with pretty stra
 
 Each method can take (not requred) an options object with following parameters:
 
-<table>
-<thead>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Required</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>url</td>
-    <td>String</td>
-    <td>no</td>
-    <td>A URL that QR code will lead to. Defaults to a current page address. Default: `window.location.href`.</td>
-  </tr>
-  <tr>
-    <td>onSuccess</td>
-    <td>Function</td>
-    <td>no</td>
-    <td>A callback that will be called after successful QR code build.</td>
-  </tr>
-  <tr>
-    <td>onFailure</td>
-    <td>Function</td>
-    <td>no</td>
-    <td>A callback that will be called after attempt to build a QR code has been failed.</td>
-  </tr>
-</tbody>
-</table>
+| Name      | Type     | Required | Description                                                                                           |
+|-----------|----------|----------|-------------------------------------------------------------------------------------------------------|
+| url       | String   | no       | A URL that QR code will lead to. Defaults to a current page address. Default: `window.location.href`. |
+| onSuccess | Function | no       | A callback that will be called after successful QR code build.                                        |
+| onFailure | Function | no       | A callback that will be called after attempt to build a QR code has been failed.                      |
 
 There are also static `Qrize` methods that communicate with `qrize.me` API directly:
 
 - `getHash()` - get unique hash id of the given URL. Options properties:
 
-<table>
-<thead>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Required</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>url</td>
-    <td>String</td>
-    <td>yes</td>
-    <td>A URL you want to get a hash id of.</td>
-  </tr>
-  <tr>
-    <td>onSuccess</td>
-    <td>Function</td>
-    <td>no</td>
-    <td>A callback that will be called on successful API response. Is invoked with an object that has two properties: `hash` and provided `url`.</td>
-  </tr>
-  <tr>
-    <td>onFailure</td>
-    <td>Function</td>
-    <td>no</td>
-    <td>A callback that will be called if request failed. Is invoked with two arguments: error status code and error message.</td>
-  </tr>
-</tbody>
-</table>
+| Name      | Type     | Required | Description                                                                                                                              |
+|-----------|----------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| url       | String   | yes      | A URL you want to get a hash id of.                                                                                                      |
+| onSuccess | Function | no       | A callback that will be called on successful API response. Is invoked with an object that has two properties: `hash` and provided `url`. |
+| onFailure | Function | no       | A callback that will be called if request failed. Is invoked with two arguments: error status code and error message.                    |
 
 - `getUrl()` - get URL of the given hash id. Params
 
-<table>
-<thead>
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Required</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>hash</td>
-    <td>String</td>
-    <td>yes</td>
-    <td>A hash id you want to get a URL of.</td>
-  </tr>
-  <tr>
-    <td>onSuccess</td>
-    <td>Function</td>
-    <td>no</td>
-    <td>A callback that will be called on successful API response. Is invoked with an object that has two properties: `url` and provided `hash`.</td>
-  </tr>
-  <tr>
-    <td>onFailure</td>
-    <td>Function</td>
-    <td>no</td>
-    <td>A callback that will be called if request failed. Is invoked with two arguments: error status code and error message.</td>
-  </tr>
-</tbody>
-</table>
+| Name      | Type     | Required | Description                                                                                                                              |
+|-----------|----------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| hash      | String   | yes      | A hash id you want to get a URL of.                                                                                                      |
+| onSuccess | Function | no       | A callback that will be called on successful API response. Is invoked with an object that has two properties: `url` and provided `hash`. |
+| onFailure | Function | no       | A callback that will be called if request failed. Is invoked with two arguments: error status code and error message.                    |
 
 You probably won't need them, but if you will you can use them like this:
 
