@@ -63,7 +63,7 @@ If you use UMD package from CDN, `Qrize` constuctor is available globally.
 |----------|-------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
 | element  | DOM Element | yes      | Container element for the generated QR code.                                                                                                           |
 | cellSize | Number      | no       | Size of each grid cell in pixels. Default: `2`.                                                                                                        |
-| margin   | Number      | no       | Margin size around the QR code in pixels. Note that you might want to leave some space around your QR code in order to make it readable. Default: `0`. |
+| margin   | Number      | no       | Size of margin around the QR code in pixels. Note that you might want to leave some space around your QR code in order to make it readable. Default: `0`. |
 
 ### Methods
 
