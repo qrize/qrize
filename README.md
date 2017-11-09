@@ -11,24 +11,9 @@ JavaScript client for generating **tiny** QR codes of your web pages.
 
 Compare these QR codes that lead to the same [long address](https://www.amazon.com/b/ref=s9_acss_bw_en_BGG15eve_d_1_9_w?_encoding=UTF8&node=25&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=merchandised-search-top-3&pf_rd_r=5NYMKAJQQQB3H3J1XTES&pf_rd_r=5NYMKAJQQQB3H3J1XTES&pf_rd_t=101&pf_rd_p=c0b03f4d-c947-45e3-9b66-2bd220509181&pf_rd_p=c0b03f4d-c947-45e3-9b66-2bd220509181&pf_rd_i=283155) (313 symbols):
 
-<table>
-  <thead>
-    <tr>
-      <th>Regular QR code :hankey:</th>
-      <th>QR code you get with qrize :sparkles:</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        ![Regular QR code](https://raw.githubusercontent.com/qrize/qrize/assets/big_qr.gif)
-      </td>
-      <td>
-        ![QR code you get with qrize](https://raw.githubusercontent.com/qrize/qrize/assets/big_qr.gif)
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Regular QR code :hankey:                                                            | QR code you get with qrize :sparkles:                                                          |
+|-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| ![Regular QR code](https://raw.githubusercontent.com/qrize/qrize/assets/big_qr.gif) | ![QR code you get with qrize](https://raw.githubusercontent.com/qrize/qrize/assets/qrized.gif) |
 
 Having QR code smaller makes it more reader-friendly, saves space on page and is awesome :metal:.
 
