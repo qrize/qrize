@@ -55,6 +55,8 @@ If you use UMD package from CDN, `Qrize` constuctor is available globally.
 
 ## API
 
+### Constructor
+
 `Qrize` constuctor takes an options object as a parameter and these are available properties:
 
 | Name     | Type        | Required | Description                                                                                                                                            |
@@ -62,6 +64,8 @@ If you use UMD package from CDN, `Qrize` constuctor is available globally.
 | element  | DOM Element | yes      | Container element for the generated QR code.                                                                                                           |
 | cellSize | Number      | no       | Size of each grid cell in pixels. Default: `2`.                                                                                                        |
 | margin   | Number      | no       | Margin size around the QR code in pixels. Note that you might want to leave some space around your QR code in order to make it readable. Default: `0`. |
+
+### Methods
 
 Instantiated object returned by `new Qrize()` has three methods with pretty straightforward purposes:
 
@@ -76,6 +80,8 @@ Each method can take (not requred) an options object with following parameters:
 | url       | String   | no       | A URL that QR code will lead to. Defaults to a current page address. Default: `window.location.href`. |
 | onSuccess | Function | no       | A callback that will be called after successful QR code build.                                        |
 | onFailure | Function | no       | A callback that will be called after attempt to build a QR code has been failed.                      |
+
+### Static Methods
 
 There are also static `Qrize` methods that communicate with `qrize.me` API directly:
 
