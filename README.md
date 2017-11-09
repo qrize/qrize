@@ -101,7 +101,7 @@ There are also static `Qrize` methods that communicate with `qrize.me` API direc
 | onSuccess | Function | no       | A callback that will be called on successful API response. Is invoked with an object that has two properties: `url` and provided `hash`. |
 | onFailure | Function | no       | A callback that will be called if request failed. Is invoked with two arguments: error status code and error message.                    |
 
-You probably won't need them, but if you will you can use them like this:
+You probably won't need them, but if you will, you can use them like this:
 
 ```js
 import Qrize from "qrize";
