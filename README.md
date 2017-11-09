@@ -63,7 +63,6 @@ If you use UMD package from CDN, `Qrize` constuctor is available globally.
     <th>Name</th>
     <th>Type</th>
     <th>Required</th>
-    <th>Default</th>
     <th>Description</th>
   </tr>
 </thead>
