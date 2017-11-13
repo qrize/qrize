@@ -125,7 +125,7 @@ Qrize.getHash({
 })
 
 Qrize.getUrl({
-  url: '8jLDWGQ',
+  hash: '8jLDWGQ',
   onSuccess({ url }) {
     console.log(url);
   }
