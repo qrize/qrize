@@ -12,6 +12,16 @@
     "url": "https://github.com/qrize/qrize",
     "type": "git"
   },
+  "homepage": "http://qrize.me",
+  "keywords": [
+    "qr",
+    "code",
+    "qrize",
+    "url",
+    "shortener",
+    "tiny",
+    "small"
+  ],
   "author": "Sergey Goliney <sergey@goliney.com>",
   "license": "MIT",
   "files": [
