@@ -4,7 +4,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var qrcode = _interopDefault(require('qrcode-generator'));
 
-var version = "0.1.0";
+var version = "0.1.2";
 
 function prepareCallback(callback) {
   return typeof callback === "function" ? callback : function () {};
@@ -289,8 +289,6 @@ var Qrize = function () {
 
     // throws errors if invalid
     validateOptions(this.options);
-
-    this.qr = qrcode(this.options.version, this.options.level);
   }
 
   createClass(Qrize, [{
@@ -308,9 +306,10 @@ var Qrize = function () {
         url: url || Qrize.getDefaultURL(),
         onSuccess: function onSuccess(response) {
           var redirectorUrl = ENDPOINTS.redirector.replace("<hash>", response.hash);
-          _this.qr.addData(redirectorUrl);
-          _this.qr.make();
-          success();
+          var qr = qrcode(_this.options.version, _this.options.level);
+          qr.addData(redirectorUrl);
+          qr.make();
+          success(qr);
         },
         onFailure: onFailure
       });
@@ -328,8 +327,8 @@ var Qrize = function () {
       var success = prepareCallback(onSuccess);
       this.prepareQR({
         url: url,
-        onSuccess: function onSuccess() {
-          _this2.options.element.innerHTML = _this2.qr.createSvgTag(_this2.options.cellSize, _this2.options.margin);
+        onSuccess: function onSuccess(qr) {
+          _this2.options.element.innerHTML = qr.createSvgTag(_this2.options.cellSize, _this2.options.margin);
           success();
         },
         onFailure: onFailure
@@ -349,8 +348,8 @@ var Qrize = function () {
       var success = prepareCallback(onSuccess);
       this.prepareQR({
         url: url,
-        onSuccess: function onSuccess() {
-          _this3.options.element.innerHTML = _this3.qr.createImgTag(_this3.options.cellSize, _this3.options.margin);
+        onSuccess: function onSuccess(qr) {
+          _this3.options.element.innerHTML = qr.createImgTag(_this3.options.cellSize, _this3.options.margin);
           success();
         },
         onFailure: onFailure
@@ -370,8 +369,8 @@ var Qrize = function () {
       var success = prepareCallback(onSuccess);
       this.prepareQR({
         url: url,
-        onSuccess: function onSuccess() {
-          _this4.options.element.innerHTML = _this4.qr.createTableTag(_this4.options.cellSize, _this4.options.margin);
+        onSuccess: function onSuccess(qr) {
+          _this4.options.element.innerHTML = qr.createTableTag(_this4.options.cellSize, _this4.options.margin);
           success();
         },
         onFailure: onFailure
