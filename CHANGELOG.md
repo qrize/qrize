@@ -1,3 +1,8 @@
+## 0.1.3 (November 26, 2017)
+
+- Make instance of Qrize reusable
+
+
 ## 0.1.2 (November 13, 2017)
 
 - Add keywords to package.json
