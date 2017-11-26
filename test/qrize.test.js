@@ -131,3 +131,25 @@ describe("prepareQR", () => {
     expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
   });
 });
+
+describe("reuse", () => {
+  test("should not throw error on reuse", () => {
+    qrize.createSvg({ url: "http://qrize.me" });
+    xhrMockObject.onreadystatechange();
+    expect(() => {
+      qrize.createSvg({ url: "http://qrize.me" });
+      xhrMockObject.onreadystatechange();
+    }).not.toThrow();
+  });
+
+  test("should rebuild QR code normally", () => {
+    qrize.createImg({ url: "http://qrize.me" });
+    xhrMockObject.onreadystatechange();
+    expect(element.innerHTML).toMatchSnapshot();
+    qrize.createImg({
+      url: "https://twitter.com/BoredElonMusk/status/611549517322715136"
+    });
+    xhrMockObject.onreadystatechange();
+    expect(element.innerHTML).toMatchSnapshot();
+  });
+});

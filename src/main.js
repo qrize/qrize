@@ -20,8 +20,6 @@ export default class Qrize {
 
     // throws errors if invalid
     validateOptions(this.options);
-
-    this.qr = qrcode(this.options.version, this.options.level);
   }
 
   static getDefaultURL() {
@@ -51,9 +49,10 @@ export default class Qrize {
           "<hash>",
           response.hash
         );
-        this.qr.addData(redirectorUrl);
-        this.qr.make();
-        success();
+        const qr = qrcode(this.options.version, this.options.level);
+        qr.addData(redirectorUrl);
+        qr.make();
+        success(qr);
       },
       onFailure
     });
@@ -64,8 +63,8 @@ export default class Qrize {
     const success = prepareCallback(onSuccess);
     this.prepareQR({
       url,
-      onSuccess: () => {
-        this.options.element.innerHTML = this.qr.createSvgTag(
+      onSuccess: qr => {
+        this.options.element.innerHTML = qr.createSvgTag(
           this.options.cellSize,
           this.options.margin
         );
@@ -81,8 +80,8 @@ export default class Qrize {
     const success = prepareCallback(onSuccess);
     this.prepareQR({
       url,
-      onSuccess: () => {
-        this.options.element.innerHTML = this.qr.createImgTag(
+      onSuccess: qr => {
+        this.options.element.innerHTML = qr.createImgTag(
           this.options.cellSize,
           this.options.margin
         );
@@ -98,8 +97,8 @@ export default class Qrize {
     const success = prepareCallback(onSuccess);
     this.prepareQR({
       url,
-      onSuccess: () => {
-        this.options.element.innerHTML = this.qr.createTableTag(
+      onSuccess: qr => {
+        this.options.element.innerHTML = qr.createTableTag(
           this.options.cellSize,
           this.options.margin
         );
