@@ -1,3 +1,8 @@
+## 0.2.1 (December1626, 2017)
+
+- Add MIT licence
+
+
 ## 0.2.0 (December 16, 2017)
 
 - Validate URL before sending to API
