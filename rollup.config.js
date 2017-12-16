@@ -3,6 +3,7 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
 import uglify from "rollup-plugin-uglify";
+import { minify } from "uglify-es";
 import pkg from "./package.json";
 
 export default [
@@ -11,7 +12,7 @@ export default [
     input: "src/main.js",
     output: {
       file: pkg.browser,
-      format: "umd"
+      format: "umd",
     },
     name: "Qrize",
     plugins: [
@@ -20,10 +21,10 @@ export default [
       commonjs(),
       babel({
         exclude: ["node_modules/*"],
-        plugins: ["external-helpers"]
+        plugins: ["external-helpers"],
       }),
-      uglify()
-    ]
+      uglify({}, minify),
+    ],
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
@@ -36,14 +37,14 @@ export default [
     external: Object.keys(pkg.dependencies),
     output: [
       { file: pkg.main, format: "cjs" },
-      { file: pkg.module, format: "es" }
+      { file: pkg.module, format: "es" },
     ],
     plugins: [
       json(),
       babel({
         exclude: ["node_modules/*"],
-        plugins: ["external-helpers"]
-      })
-    ]
-  }
+        plugins: ["external-helpers"],
+      }),
+    ],
+  },
 ];

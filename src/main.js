@@ -2,7 +2,7 @@ import qrcode from "qrcode-generator";
 import { version as pkgVersion } from "../package.json";
 import { getJSON, prepareCallback } from "./requests";
 import * as constants from "./constants";
-import { validateOptions } from "./validators";
+import { validateOptions, validateUrl } from "./validators";
 
 export default class Qrize {
   constructor(options = {}) {
@@ -15,7 +15,7 @@ export default class Qrize {
       cellSize: options.cellSize || 2,
       margin: options.margin || 0,
       version: 0,
-      level: "L"
+      level: "L",
     };
 
     // throws errors if invalid
@@ -41,9 +41,11 @@ export default class Qrize {
 
   prepareQR(params = {}) {
     const { url, onSuccess, onFailure } = params;
+    const actualUrl = url || Qrize.getDefaultURL();
+    validateUrl(actualUrl);
     const success = prepareCallback(onSuccess);
     Qrize.getHash({
-      url: url || Qrize.getDefaultURL(),
+      url: actualUrl,
       onSuccess: response => {
         const redirectorUrl = constants.ENDPOINTS.redirector.replace(
           "<hash>",
@@ -54,7 +56,7 @@ export default class Qrize {
         qr.make();
         success(qr);
       },
-      onFailure
+      onFailure,
     });
   }
 
@@ -70,7 +72,7 @@ export default class Qrize {
         );
         success();
       },
-      onFailure
+      onFailure,
     });
     return this;
   }
@@ -87,7 +89,7 @@ export default class Qrize {
         );
         success();
       },
-      onFailure
+      onFailure,
     });
     return this;
   }
@@ -104,7 +106,7 @@ export default class Qrize {
         );
         success();
       },
-      onFailure
+      onFailure,
     });
     return this;
   }

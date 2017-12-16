@@ -73,6 +73,22 @@ function isInteger(value) {
   return isNumber(value) && !(value % 1);
 }
 
+var urlRegExp = {
+  shema: /((?:http|ftp)s?:\/\/)/,
+  domain: /(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)/,
+  ip: /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+  port: /(?::\d+)/,
+  query: /(?:\/?|[/?]\S+)/
+};
+
+urlRegExp.composed = new RegExp("^" + urlRegExp.shema.source + "?" + ("(?:" + urlRegExp.domain.source + "|localhost|" + urlRegExp.ip.source + ")") + (urlRegExp.port.source + "?") + (urlRegExp.query.source + "$"), "i");
+
+function validateUrl(url) {
+  if (!urlRegExp.composed.test(url)) {
+    throw new Error("Invalid \"url\": " + url);
+  }
+}
+
 function validateElementOption(element) {
   if (!(element instanceof Element)) {
     throw new TypeError("Invalid \"element\": " + element + ". Must be an instance of Element");
@@ -124,123 +140,6 @@ function validateOptions(options) {
   validateLevelOption(options.level);
   return true;
 }
-
-var asyncGenerator = function () {
-  function AwaitValue(value) {
-    this.value = value;
-  }
-
-  function AsyncGenerator(gen) {
-    var front, back;
-
-    function send(key, arg) {
-      return new Promise(function (resolve, reject) {
-        var request = {
-          key: key,
-          arg: arg,
-          resolve: resolve,
-          reject: reject,
-          next: null
-        };
-
-        if (back) {
-          back = back.next = request;
-        } else {
-          front = back = request;
-          resume(key, arg);
-        }
-      });
-    }
-
-    function resume(key, arg) {
-      try {
-        var result = gen[key](arg);
-        var value = result.value;
-
-        if (value instanceof AwaitValue) {
-          Promise.resolve(value.value).then(function (arg) {
-            resume("next", arg);
-          }, function (arg) {
-            resume("throw", arg);
-          });
-        } else {
-          settle(result.done ? "return" : "normal", result.value);
-        }
-      } catch (err) {
-        settle("throw", err);
-      }
-    }
-
-    function settle(type, value) {
-      switch (type) {
-        case "return":
-          front.resolve({
-            value: value,
-            done: true
-          });
-          break;
-
-        case "throw":
-          front.reject(value);
-          break;
-
-        default:
-          front.resolve({
-            value: value,
-            done: false
-          });
-          break;
-      }
-
-      front = front.next;
-
-      if (front) {
-        resume(front.key, front.arg);
-      } else {
-        back = null;
-      }
-    }
-
-    this._invoke = send;
-
-    if (typeof gen.return !== "function") {
-      this.return = undefined;
-    }
-  }
-
-  if (typeof Symbol === "function" && Symbol.asyncIterator) {
-    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-      return this;
-    };
-  }
-
-  AsyncGenerator.prototype.next = function (arg) {
-    return this._invoke("next", arg);
-  };
-
-  AsyncGenerator.prototype.throw = function (arg) {
-    return this._invoke("throw", arg);
-  };
-
-  AsyncGenerator.prototype.return = function (arg) {
-    return this._invoke("return", arg);
-  };
-
-  return {
-    wrap: function (fn) {
-      return function () {
-        return new AsyncGenerator(fn.apply(this, arguments));
-      };
-    },
-    await: function (value) {
-      return new AwaitValue(value);
-    }
-  };
-}();
-
-
-
-
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -297,9 +196,11 @@ var Qrize = function () {
           onSuccess = params.onSuccess,
           onFailure = params.onFailure;
 
+      var actualUrl = url || Qrize.getDefaultURL();
+      validateUrl(actualUrl);
       var success = prepareCallback(onSuccess);
       Qrize.getHash({
-        url: url || Qrize.getDefaultURL(),
+        url: actualUrl,
         onSuccess: function onSuccess(response) {
           var redirectorUrl = ENDPOINTS.redirector.replace("<hash>", response.hash);
           var qr = qrcode(_this.options.version, _this.options.level);
