@@ -1,3 +1,12 @@
+## 0.2.0 (December 16, 2017)
+
+- Validate URL before sending to API
+
+Internal:
+
+- Tweak Prettier options
+
+
 ## 0.1.3 (November 26, 2017)
 
 - Make instance of Qrize reusable
