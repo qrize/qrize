@@ -17,7 +17,7 @@ beforeEach(() => {
       responseText: '{"hash":"8jLDWGQ","url":"http://qrize.me"}',
       open: jest.fn(),
       send: jest.fn(),
-      onreadystatechange: null
+      onreadystatechange: null,
     };
     return xhrMockObject;
   };
@@ -28,7 +28,7 @@ beforeEach(() => {
   // See: https://github.com/facebook/jest/issues/890
   Object.defineProperty(window.location, "href", {
     writable: true,
-    value: "http://example.com"
+    value: "http://example.com",
   });
 
   spyGetHash = jest.spyOn(Qrize, "getHash");
@@ -89,7 +89,7 @@ describe("getUrl", () => {
       onSuccess: response => {
         expect(response).toMatchSnapshot();
         done();
-      }
+      },
     });
     xhrMockObject.onreadystatechange();
   });
@@ -102,7 +102,7 @@ describe("getHash", () => {
       onSuccess: response => {
         expect(response).toMatchSnapshot();
         done();
-      }
+      },
     });
     xhrMockObject.onreadystatechange();
   });
@@ -112,7 +112,7 @@ describe("prepareQR", () => {
   test("should call onFailure callback if API responded with error", () => {
     const onSuccess = jest.fn();
     const onFailure = jest.fn();
-    qrize.prepareQR({ url: "invalid-url", onSuccess, onFailure });
+    qrize.prepareQR({ url: "http://qrize.me/error", onSuccess, onFailure });
 
     xhrMockObject.readyState = 3;
     xhrMockObject.onreadystatechange();
@@ -120,7 +120,7 @@ describe("prepareQR", () => {
     expect(onFailure.mock.calls.length).toBe(0);
 
     xhrMockObject.readyState = 4;
-    xhrMockObject.status = 400;
+    xhrMockObject.status = 500;
     xhrMockObject.onreadystatechange();
     expect(onSuccess.mock.calls.length).toBe(0);
     expect(onFailure.mock.calls.length).toBe(1);
@@ -147,7 +147,7 @@ describe("reuse", () => {
     xhrMockObject.onreadystatechange();
     expect(element.innerHTML).toMatchSnapshot();
     qrize.createImg({
-      url: "https://twitter.com/BoredElonMusk/status/611549517322715136"
+      url: "https://twitter.com/BoredElonMusk/status/611549517322715136",
     });
     xhrMockObject.onreadystatechange();
     expect(element.innerHTML).toMatchSnapshot();

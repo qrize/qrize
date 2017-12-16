@@ -8,6 +8,28 @@ function isInteger(value) {
   return isNumber(value) && !(value % 1);
 }
 
+const urlRegExp = {
+  shema: /((?:http|ftp)s?:\/\/)/,
+  domain: /(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)/,
+  ip: /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
+  port: /(?::\d+)/,
+  query: /(?:\/?|[/?]\S+)/,
+};
+
+urlRegExp.composed = new RegExp(
+  `^${urlRegExp.shema.source}?` +
+    `(?:${urlRegExp.domain.source}|localhost|${urlRegExp.ip.source})` +
+    `${urlRegExp.port.source}?` +
+    `${urlRegExp.query.source}$`,
+  "i"
+);
+
+export function validateUrl(url) {
+  if (!urlRegExp.composed.test(url)) {
+    throw new Error(`Invalid "url": ${url}`);
+  }
+}
+
 export function validateElementOption(element) {
   if (!(element instanceof Element)) {
     throw new TypeError(

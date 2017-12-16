@@ -1,0 +1,15 @@
+# exclude everything
+/*
+
+# except /src/**/*.js
+!/src
+/src/**/*.*
+!/src/**/*.js
+
+# except /test/**/*.js
+!/test
+/test/**/*.*
+!/test/**/*.js
+
+!rollup.config.js
+!jest.config.js

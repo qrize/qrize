@@ -1,5 +1,9 @@
 import Qrize from "../src/main";
-import { validateVersionOption, validateLevelOption } from "../src/validators";
+import {
+  validateVersionOption,
+  validateLevelOption,
+  validateUrl,
+} from "../src/validators";
 
 const element = document.createElement("div");
 
@@ -70,5 +74,44 @@ describe("level", () => {
     expect(() => validateLevelOption("M")).not.toThrow();
     expect(() => validateLevelOption("Q")).not.toThrow();
     expect(() => validateLevelOption("H")).not.toThrow();
+  });
+});
+
+describe("url", () => {
+  const invalidUrls = [
+    "invalid-url",
+    "http",
+    123,
+    {},
+    "qrize..me",
+    "qrize.me::111",
+    "qrize.me#111",
+  ];
+
+  const validUrls = [
+    "localhost",
+    "qrize.me",
+    "www.qrize.me",
+    "192.168.0.1",
+    "http://www.qrize.me",
+    "https://www.qrize.me/params/?search=input&param=value#anchor",
+    "ftp://example.com",
+    "ftps://example.com",
+  ];
+
+  test("should throw error if url is invalid", () => {
+    invalidUrls.forEach(host =>
+      expect(() => validateUrl(host)).toThrow(`Invalid "url": ${host}`)
+    );
+  });
+
+  test("should pass if url is valid", () => {
+    validUrls.forEach(host => expect(() => validateUrl(host)).not.toThrow());
+  });
+
+  test("should pass if host and port are valid", () => {
+    validUrls.forEach(host =>
+      expect(() => validateUrl(`${host}:8000`)).not.toThrow()
+    );
   });
 });

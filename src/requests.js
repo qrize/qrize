@@ -21,7 +21,7 @@ export function get({ url, onSuccess, onFailure }) {
     method: "GET",
     url,
     onSuccess,
-    onFailure
+    onFailure,
   });
 }
 
@@ -30,6 +30,6 @@ export function getJSON({ url, onSuccess, onFailure }) {
   get({
     url,
     onSuccess: response => success(JSON.parse(response)),
-    onFailure
+    onFailure,
   });
 }
