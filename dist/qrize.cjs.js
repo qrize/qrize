@@ -4,7 +4,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var qrcode = _interopDefault(require('qrcode-generator'));
 
-var version = "0.2.0";
+var version = "0.2.1";
 
 function prepareCallback(callback) {
   return typeof callback === "function" ? callback : function () {};
