@@ -26,7 +26,10 @@
     function onSubmit(event) {
       event.preventDefault();
       qrize.createImg({
-        url: document.urlForm.elements.url.value
+        url: document.urlForm.elements.url.value,
+        onSuccess: function(response) {
+          console.log(response);
+        }
       });
     }
 
