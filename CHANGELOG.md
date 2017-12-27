@@ -1,4 +1,9 @@
-## 0.2.1 (December1626, 2017)
+## 0.3.0 (December 27, 2017)
+
+- onSuccess callback of `createImg`, `createSvg` and `createTable` methods receives an object with `hash` and `url` properties
+
+
+## 0.2.1 (December 16, 2017)
 
 - Add MIT licence
 
