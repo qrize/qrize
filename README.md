@@ -86,11 +86,11 @@ Instantiated object returned by `new Qrize()` has three methods with pretty stra
 
 Each method can take (not requred) an options object with following parameters:
 
-| Name      | Type     | Required | Description                                                                                           |
-|-----------|----------|----------|-------------------------------------------------------------------------------------------------------|
-| url       | String   | no       | A URL that QR code will lead to. Defaults to a current page address. Default: `window.location.href`. |
-| onSuccess | Function | no       | A callback that will be called after successful QR code build.                                        |
-| onFailure | Function | no       | A callback that will be called after an attempt to build a QR code has been failed.                      |
+| Name      | Type     | Required | Description                                                                                                                                  |
+|-----------|----------|----------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| url       | String   | no       | A URL that QR code will lead to. Defaults to a current page address. Default: `window.location.href`.                                        |
+| onSuccess | Function | no       | A callback that will be called after successful QR code build. Is invoked with an object that has two properties: `hash` and provided `url`. |
+| onFailure | Function | no       | A callback that will be called after an attempt to build a QR code has been failed.                                                          |
 
 ### Static Methods
 

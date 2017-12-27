@@ -206,7 +206,7 @@ var Qrize = function () {
           var qr = qrcode(_this.options.version, _this.options.level);
           qr.addData(redirectorUrl);
           qr.make();
-          success(qr);
+          success(qr, { hash: response.hash, url: response.url });
         },
         onFailure: onFailure
       });
@@ -224,9 +224,9 @@ var Qrize = function () {
       var success = prepareCallback(onSuccess);
       this.prepareQR({
         url: url,
-        onSuccess: function onSuccess(qr) {
+        onSuccess: function onSuccess(qr, response) {
           _this2.options.element.innerHTML = qr.createSvgTag(_this2.options.cellSize, _this2.options.margin);
-          success();
+          success({ hash: response.hash, url: response.url });
         },
         onFailure: onFailure
       });
@@ -245,9 +245,9 @@ var Qrize = function () {
       var success = prepareCallback(onSuccess);
       this.prepareQR({
         url: url,
-        onSuccess: function onSuccess(qr) {
+        onSuccess: function onSuccess(qr, response) {
           _this3.options.element.innerHTML = qr.createImgTag(_this3.options.cellSize, _this3.options.margin);
-          success();
+          success({ hash: response.hash, url: response.url });
         },
         onFailure: onFailure
       });
@@ -266,9 +266,9 @@ var Qrize = function () {
       var success = prepareCallback(onSuccess);
       this.prepareQR({
         url: url,
-        onSuccess: function onSuccess(qr) {
+        onSuccess: function onSuccess(qr, response) {
           _this4.options.element.innerHTML = qr.createTableTag(_this4.options.cellSize, _this4.options.margin);
-          success();
+          success({ hash: response.hash, url: response.url });
         },
         onFailure: onFailure
       });

@@ -54,6 +54,15 @@ describe("createSvg", () => {
     qrize.createSvg();
     expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
   });
+
+  test("passes correct parameters to onSuccess callback", () => {
+    const onSuccess = jest.fn();
+    qrize.createSvg({ onSuccess });
+
+    xhrMockObject.onreadystatechange();
+    expect(onSuccess.mock.calls[0][0].hash).toBe("8jLDWGQ");
+    expect(onSuccess.mock.calls[0][0].url).toBe("http://qrize.me");
+  });
 });
 
 describe("createImg", () => {
@@ -67,6 +76,15 @@ describe("createImg", () => {
     qrize.createImg();
     expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
   });
+
+  test("passes correct parameters to onSuccess callback", () => {
+    const onSuccess = jest.fn();
+    qrize.createImg({ onSuccess });
+
+    xhrMockObject.onreadystatechange();
+    expect(onSuccess.mock.calls[0][0].hash).toBe("8jLDWGQ");
+    expect(onSuccess.mock.calls[0][0].url).toBe("http://qrize.me");
+  });
 });
 
 describe("createTable", () => {
@@ -79,6 +97,15 @@ describe("createTable", () => {
   test("uses current page url as default", () => {
     qrize.createTable();
     expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
+  });
+
+  test("passes correct parameters to onSuccess callback", () => {
+    const onSuccess = jest.fn();
+    qrize.createTable({ onSuccess });
+
+    xhrMockObject.onreadystatechange();
+    expect(onSuccess.mock.calls[0][0].hash).toBe("8jLDWGQ");
+    expect(onSuccess.mock.calls[0][0].url).toBe("http://qrize.me");
   });
 });
 
@@ -109,7 +136,7 @@ describe("getHash", () => {
 });
 
 describe("prepareQR", () => {
-  test("should call onFailure callback if API responded with error", () => {
+  test("calls onFailure callback if API responded with error", () => {
     const onSuccess = jest.fn();
     const onFailure = jest.fn();
     qrize.prepareQR({ url: "http://qrize.me/error", onSuccess, onFailure });
@@ -133,7 +160,7 @@ describe("prepareQR", () => {
 });
 
 describe("reuse", () => {
-  test("should not throw error on reuse", () => {
+  test("doesn't throw error on reuse", () => {
     qrize.createSvg({ url: "http://qrize.me" });
     xhrMockObject.onreadystatechange();
     expect(() => {
@@ -142,7 +169,7 @@ describe("reuse", () => {
     }).not.toThrow();
   });
 
-  test("should rebuild QR code normally", () => {
+  test("rebuilds QR code normally", () => {
     qrize.createImg({ url: "http://qrize.me" });
     xhrMockObject.onreadystatechange();
     expect(element.innerHTML).toMatchSnapshot();

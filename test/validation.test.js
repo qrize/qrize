@@ -12,52 +12,52 @@ describe("element", () => {
     expect(() => new Qrize()).toThrow();
   });
 
-  test("should be an Element", () => {
+  test("is an Element", () => {
     expect(() => new Qrize({ element: "<div></div>" })).toThrow();
   });
 
-  test("should be the only mandatory option", () => {
+  test("is the only mandatory option", () => {
     expect(() => new Qrize({ element })).not.toThrow();
   });
 });
 
 describe("cellSize", () => {
-  test("should be a number", () => {
+  test("is a number", () => {
     expect(() => new Qrize({ element, cellSize: "string" })).toThrow();
     expect(() => new Qrize({ element, cellSize: {} })).toThrow();
     expect(() => new Qrize({ element, cellSize: true })).toThrow();
     expect(() => new Qrize({ element, cellSize: Infinity })).toThrow();
   });
 
-  test("should be greater than zero", () => {
+  test("is greater than zero", () => {
     expect(() => new Qrize({ element, cellSize: -42 })).toThrow();
     expect(() => new Qrize({ element, cellSize: 10 })).not.toThrow();
   });
 });
 
 describe("margin", () => {
-  test("should be a number", () => {
+  test("is a number", () => {
     expect(() => new Qrize({ element, margin: "string" })).toThrow();
     expect(() => new Qrize({ element, margin: {} })).toThrow();
     expect(() => new Qrize({ element, margin: true })).toThrow();
     expect(() => new Qrize({ element, margin: Infinity })).toThrow();
   });
 
-  test("should be greater than zero", () => {
+  test("is greater than zero", () => {
     expect(() => new Qrize({ element, margin: -42 })).toThrow();
     expect(() => new Qrize({ element, margin: 10 })).not.toThrow();
   });
 });
 
 describe("version", () => {
-  test("should be a number", () => {
+  test("is a number", () => {
     expect(() => validateVersionOption("string")).toThrow();
     expect(() => validateVersionOption({})).toThrow();
     expect(() => validateVersionOption(true)).toThrow();
     expect(() => validateVersionOption(Infinity)).toThrow();
   });
 
-  test("should be within range", () => {
+  test("is within range", () => {
     expect(() => validateVersionOption(-1)).toThrow();
     expect(() => validateVersionOption(41)).toThrow();
     expect(() => validateVersionOption(0)).not.toThrow();
@@ -66,7 +66,7 @@ describe("version", () => {
 });
 
 describe("level", () => {
-  test("should be the one of predefined values", () => {
+  test("is the one of predefined values", () => {
     expect(() => validateLevelOption(1)).toThrow();
     expect(() => validateLevelOption("A")).toThrow();
     expect(() => validateLevelOption("lol")).toThrow();
@@ -99,17 +99,17 @@ describe("url", () => {
     "ftps://example.com",
   ];
 
-  test("should throw error if url is invalid", () => {
+  test("throws error if url is invalid", () => {
     invalidUrls.forEach(host =>
       expect(() => validateUrl(host)).toThrow(`Invalid "url": ${host}`)
     );
   });
 
-  test("should pass if url is valid", () => {
+  test("passes if url is valid", () => {
     validUrls.forEach(host => expect(() => validateUrl(host)).not.toThrow());
   });
 
-  test("should pass if host and port are valid", () => {
+  test("passes if host and port are valid", () => {
     validUrls.forEach(host =>
       expect(() => validateUrl(`${host}:8000`)).not.toThrow()
     );
