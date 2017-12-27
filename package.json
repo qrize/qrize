@@ -1,6 +1,6 @@
 {
   "name": "qrize",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "JavaScript library for generating tiny QR codes of your web pages",
   "engines": {
     "npm": ">=4"
