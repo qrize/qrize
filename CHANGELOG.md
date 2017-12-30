@@ -1,3 +1,8 @@
+## 0.3.1 (December 30, 2017)
+
+- Add Live Demo link to the Readme
+
+
 ## 0.3.0 (December 27, 2017)
 
 - onSuccess callback of `createImg`, `createSvg` and `createTable` methods receives an object with `hash` and `url` properties
