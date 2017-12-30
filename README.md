@@ -3,10 +3,12 @@
 [![Build Status](https://travis-ci.org/qrize/qrize.svg?branch=master)](https://travis-ci.org/qrize/qrize)
 [![Coverage Status](https://coveralls.io/repos/github/qrize/qrize/badge.svg?branch=master)](https://coveralls.io/github/qrize/qrize?branch=master)
 
-JavaScript library for generating **tiny** QR codes of your web pages.
+JavaScript library for generating **tiny** QR codes for your web pages.
+
 
 ## Table of Contents
 
+- [Live demo](#live-demo)
 - [Why qrize?](#why-qrize)
 - [How to install?](#how-to-install)
 - [How to use?](#how-to-use)
@@ -15,6 +17,12 @@ JavaScript library for generating **tiny** QR codes of your web pages.
   - [Methods](#methods)
   - [Static Methods](#static-methods)
 - [License](#license)
+
+
+## Live demo
+
+http://qrize.me
+
 
 ## Why qrize?
 
