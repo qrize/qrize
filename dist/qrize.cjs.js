@@ -57,9 +57,9 @@ function getJSON(_ref3) {
 }
 
 var ENDPOINTS = {
-  getHash: "http://qrize.me/get-hash/<url>",
-  getUrl: "http://qrize.me/get-url/<hash>",
-  redirector: "http://qrize.me/<hash>"
+  getHash: "https://qrize.me/get-hash/<url>",
+  getUrl: "https://qrize.me/get-url/<hash>",
+  redirector: "https://qrize.me/<hash>"
 };
 
 var ERROR_CORRECTION_LEVELS = {
