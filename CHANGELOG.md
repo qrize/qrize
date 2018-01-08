@@ -1,3 +1,8 @@
+## 0.4.0 (January 8, 2017)
+
+- Use https instead of http
+
+
 ## 0.3.1 (December 30, 2017)
 
 - Add Live Demo link to the Readme

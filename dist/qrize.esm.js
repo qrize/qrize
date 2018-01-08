@@ -1,6 +1,6 @@
 import qrcode from 'qrcode-generator';
 
-var version = "0.3.1";
+var version = "0.4.0";
 
 function prepareCallback(callback) {
   return typeof callback === "function" ? callback : function () {};
