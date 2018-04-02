@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "root": true,
   "env": {
     "browser": true,
@@ -9,10 +10,14 @@
     "prettier"
   ],
   "plugins": [
+    "flowtype",
     "json",
     "prettier"
   ],
   "rules": {
     "prettier/prettier": "error"
+  },
+  "globals": {
+    "$Keys": true
   }
 }

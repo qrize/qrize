@@ -52,6 +52,8 @@ function getJSON(_ref3) {
   });
 }
 
+//      
+
 var ENDPOINTS = {
   getHash: "https://qrize.me/get-hash/<url>",
   getUrl: "https://qrize.me/get-url/<hash>",
@@ -165,14 +167,14 @@ var createClass = function () {
   };
 }();
 
+//      
+
 var Qrize = function () {
-  function Qrize() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  function Qrize(options) {
     classCallCheck(this, Qrize);
 
     this.version = version;
-
-    // 'version' and 'level' are hardcoded,
+    // 'level' is hardcoded,
     // as URLs we code have the same length always
     this.options = {
       element: options.element,

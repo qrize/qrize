@@ -1,3 +1,5 @@
+// @flow
+
 export const ENDPOINTS = {
   getHash: "https://qrize.me/get-hash/<url>",
   getUrl: "https://qrize.me/get-url/<hash>",

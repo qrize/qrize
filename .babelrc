@@ -1,5 +1,7 @@
 {
+  "plugins": ["transform-class-properties"],
   "presets": [
+    "flow",
     [
       "env",
       {
@@ -12,6 +14,7 @@
   ],
   "env": {
     "test": {
+      "plugins": ["transform-class-properties"],
       "presets": [
         [
           "env",

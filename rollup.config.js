@@ -1,3 +1,4 @@
+import flow from "rollup-plugin-flow"; // removes flow annotations
 import json from "rollup-plugin-json";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
@@ -13,15 +14,16 @@ export default [
     output: {
       file: pkg.browser,
       format: "umd",
+      name: "Qrize",
     },
-    name: "Qrize",
     plugins: [
+      flow(),
       json(),
       resolve(),
       commonjs(),
       babel({
         exclude: ["node_modules/*"],
-        plugins: ["external-helpers"],
+        plugins: ["external-helpers", "transform-class-properties"],
       }),
       uglify({}, minify),
     ],
@@ -40,10 +42,11 @@ export default [
       { file: pkg.module, format: "es" },
     ],
     plugins: [
+      flow(),
       json(),
       babel({
         exclude: ["node_modules/*"],
-        plugins: ["external-helpers"],
+        plugins: ["external-helpers", "transform-class-properties"],
       }),
     ],
   },

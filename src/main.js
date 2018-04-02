@@ -1,14 +1,37 @@
+// @flow
+
 import qrcode from "qrcode-generator";
 import { version as pkgVersion } from "../package.json";
 import { getJSON, prepareCallback } from "./requests";
 import * as constants from "./constants";
 import { validateOptions, validateUrl } from "./validators";
 
-export default class Qrize {
-  constructor(options = {}) {
-    this.version = pkgVersion;
+export type QrizeOptions = {
+  element: Element,
+  cellSize?: ?number,
+  margin?: ?number,
+};
 
-    // 'version' and 'level' are hardcoded,
+export type PublicParams = {
+  url?: string,
+  onSuccess?: ?({ hash: string, url: string }) => void,
+  onFailure?: ?(status: number, responseText: string) => void,
+};
+
+export default class Qrize {
+  version: string;
+
+  options: {
+    element: Element,
+    cellSize: number,
+    margin: number,
+    version: number,
+    level: $Keys<typeof constants.ERROR_CORRECTION_LEVELS>,
+  };
+
+  constructor(options: QrizeOptions) {
+    this.version = pkgVersion;
+    // 'level' is hardcoded,
     // as URLs we code have the same length always
     this.options = {
       element: options.element,
@@ -60,7 +83,7 @@ export default class Qrize {
     });
   }
 
-  createSvg(params = {}) {
+  createSvg(params: PublicParams = {}) {
     const { url, onSuccess, onFailure } = params;
     const success = prepareCallback(onSuccess);
     this.prepareQR({
@@ -77,7 +100,7 @@ export default class Qrize {
     return this;
   }
 
-  createImg(params = {}) {
+  createImg(params: PublicParams = {}) {
     const { url, onSuccess, onFailure } = params;
     const success = prepareCallback(onSuccess);
     this.prepareQR({
@@ -94,7 +117,7 @@ export default class Qrize {
     return this;
   }
 
-  createTable(params = {}) {
+  createTable(params: PublicParams = {}) {
     const { url, onSuccess, onFailure } = params;
     const success = prepareCallback(onSuccess);
     this.prepareQR({
