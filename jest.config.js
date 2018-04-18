@@ -9,4 +9,5 @@ module.exports = {
       statements: 100,
     },
   },
+  testURL: "http://example.com",
 };

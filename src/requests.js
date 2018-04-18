@@ -1,8 +1,35 @@
-export function prepareCallback(callback) {
+// @flow
+
+import type { HashUrlPair, OnRequestFailureCallback } from "./types";
+
+type RequestParams = {|
+  url: string,
+  onSuccess?: (json: string) => void,
+  onFailure?: OnRequestFailureCallback,
+|};
+
+type ExtendedRequestParams = {
+  ...RequestParams,
+  method: "GET" | "POST",
+};
+
+type JsonRequestParams = {
+  ...RequestParams,
+  onSuccess?: HashUrlPair => void,
+};
+
+type PreparedCallbackFunction = (...Array<mixed>) => void;
+
+export function prepareCallback(callback: mixed): PreparedCallbackFunction {
   return typeof callback === "function" ? callback : () => {};
 }
 
-export function simpleHttpRequest({ method, url, onSuccess, onFailure }) {
+export function simpleHttpRequest({
+  method,
+  url,
+  onSuccess,
+  onFailure,
+}: ExtendedRequestParams) {
   const success = prepareCallback(onSuccess);
   const failure = prepareCallback(onFailure);
   const request = new XMLHttpRequest();
@@ -16,7 +43,7 @@ export function simpleHttpRequest({ method, url, onSuccess, onFailure }) {
   };
 }
 
-export function get({ url, onSuccess, onFailure }) {
+export function get({ url, onSuccess, onFailure }: RequestParams) {
   simpleHttpRequest({
     method: "GET",
     url,
@@ -25,7 +52,7 @@ export function get({ url, onSuccess, onFailure }) {
   });
 }
 
-export function getJSON({ url, onSuccess, onFailure }) {
+export function getJSON({ url, onSuccess, onFailure }: JsonRequestParams) {
   const success = prepareCallback(onSuccess);
   get({
     url,

@@ -1,9 +1,9 @@
-import Qrize from "../src/main";
+import Qrize from "../../src/main";
 import {
   validateVersionOption,
   validateLevelOption,
   validateUrl,
-} from "../src/validators";
+} from "../../src/validators";
 
 const element = document.createElement("div");
 

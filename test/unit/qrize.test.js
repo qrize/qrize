@@ -1,5 +1,5 @@
-import Qrize from "../src/main";
-import pkg from "../package.json";
+import Qrize from "../../src/main";
+import pkg from "../../package.json";
 
 let qrize;
 let element;
@@ -23,14 +23,6 @@ beforeEach(() => {
   };
 
   global.XMLHttpRequest = jest.fn().mockImplementation(xhrMockClass);
-
-  // mock window.location.href
-  // See: https://github.com/facebook/jest/issues/890
-  Object.defineProperty(window.location, "href", {
-    writable: true,
-    value: "http://example.com",
-  });
-
   spyGetHash = jest.spyOn(Qrize, "getHash");
 });
 
@@ -52,7 +44,7 @@ describe("createSvg", () => {
 
   test("uses current page url as default", () => {
     qrize.createSvg();
-    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
+    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com/");
   });
 
   test("passes correct parameters to onSuccess callback", () => {
@@ -74,7 +66,7 @@ describe("createImg", () => {
 
   test("uses current page url as default", () => {
     qrize.createImg();
-    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
+    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com/");
   });
 
   test("passes correct parameters to onSuccess callback", () => {
@@ -96,7 +88,7 @@ describe("createTable", () => {
 
   test("uses current page url as default", () => {
     qrize.createTable();
-    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
+    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com/");
   });
 
   test("passes correct parameters to onSuccess callback", () => {
@@ -155,7 +147,7 @@ describe("prepareQR", () => {
 
   test("uses current page url as default", () => {
     qrize.prepareQR();
-    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com");
+    expect(Qrize.getHash.mock.calls[0][0].url).toBe("http://example.com/");
   });
 });
 

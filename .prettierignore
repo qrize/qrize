@@ -10,6 +10,12 @@
 !/test
 /test/**/*.*
 !/test/**/*.js
+!/src/**/*.js
+
+# except /flow-typed/**/*.js
+!/flow-typed
+/flow-typed/**/*.*
+!/flow-typed/**/*.js
 
 !rollup.config.js
 !jest.config.js
