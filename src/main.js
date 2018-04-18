@@ -1,33 +1,54 @@
 // @flow
 
 import qrcode from "qrcode-generator";
+import type { QrCode } from "qrcode-generator";
 import { version as pkgVersion } from "../package.json";
 import { getJSON, prepareCallback } from "./requests";
 import * as constants from "./constants";
 import { validateOptions, validateUrl } from "./validators";
+import type {
+  HashUrlPair,
+  OnRequestSuccessCallback,
+  OnRequestFailureCallback,
+  QrizeOptionsInternal,
+} from "./types";
 
-export type QrizeOptions = {
+type OptionalRequestCallbacks = {
+  onSuccess?: OnRequestSuccessCallback,
+  onFailure?: OnRequestFailureCallback,
+};
+
+export type QrizeOptions = {|
   element: Element,
   cellSize?: ?number,
   margin?: ?number,
-};
+|};
 
 export type PublicParams = {
   url?: string,
-  onSuccess?: ?({ hash: string, url: string }) => void,
-  onFailure?: ?(status: number, responseText: string) => void,
+  ...$Exact<OptionalRequestCallbacks>, // See: https://github.com/facebook/flow/issues/3534
 };
+
+export type PrepareQrParams = {
+  url?: string,
+  onSuccess?: (qr: QrCode, response: HashUrlPair) => void,
+  onFailure?: OnRequestFailureCallback,
+};
+
+export type StaticGetUrlParams = {|
+  hash: string,
+  ...$Exact<OptionalRequestCallbacks>,
+|};
+
+export type StaticGetHashParams = {|
+  url: string,
+  ...$Exact<OptionalRequestCallbacks>,
+|};
 
 export default class Qrize {
   version: string;
 
-  options: {
-    element: Element,
-    cellSize: number,
-    margin: number,
-    version: number,
-    level: $Keys<typeof constants.ERROR_CORRECTION_LEVELS>,
-  };
+  options: QrizeOptionsInternal;
 
   constructor(options: QrizeOptions) {
     this.version = pkgVersion;
@@ -45,24 +66,24 @@ export default class Qrize {
     validateOptions(this.options);
   }
 
-  static getDefaultURL() {
+  static getDefaultURL(): string {
     return window.location.href;
   }
 
-  static getUrl(params) {
+  static getUrl(params: StaticGetUrlParams) {
     const { hash, onSuccess, onFailure } = params;
     const apiUrl = constants.ENDPOINTS.getUrl.replace("<hash>", hash);
     getJSON({ url: apiUrl, onSuccess, onFailure });
   }
 
-  static getHash(params) {
+  static getHash(params: StaticGetHashParams) {
     const { url, onSuccess, onFailure } = params;
     const encodedUrl = encodeURIComponent(url);
     const apiUrl = constants.ENDPOINTS.getHash.replace("<url>", encodedUrl);
     getJSON({ url: apiUrl, onSuccess, onFailure });
   }
 
-  prepareQR(params = {}) {
+  prepareQR(params: PrepareQrParams = {}) {
     const { url, onSuccess, onFailure } = params;
     const actualUrl = url || Qrize.getDefaultURL();
     validateUrl(actualUrl);
@@ -85,7 +106,7 @@ export default class Qrize {
 
   createSvg(params: PublicParams = {}) {
     const { url, onSuccess, onFailure } = params;
-    const success = prepareCallback(onSuccess);
+    const success: HashUrlPair => void = prepareCallback(onSuccess);
     this.prepareQR({
       url,
       onSuccess: (qr, response) => {
@@ -102,7 +123,7 @@ export default class Qrize {
 
   createImg(params: PublicParams = {}) {
     const { url, onSuccess, onFailure } = params;
-    const success = prepareCallback(onSuccess);
+    const success: HashUrlPair => void = prepareCallback(onSuccess);
     this.prepareQR({
       url,
       onSuccess: (qr, response) => {
@@ -119,7 +140,7 @@ export default class Qrize {
 
   createTable(params: PublicParams = {}) {
     const { url, onSuccess, onFailure } = params;
-    const success = prepareCallback(onSuccess);
+    const success: HashUrlPair => void = prepareCallback(onSuccess);
     this.prepareQR({
       url,
       onSuccess: (qr, response) => {

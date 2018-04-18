@@ -6,6 +6,9 @@ var qrcode = _interopDefault(require('qrcode-generator'));
 
 var version = "0.4.0";
 
+//      
+
+
 function prepareCallback(callback) {
   return typeof callback === "function" ? callback : function () {};
 }
@@ -71,6 +74,8 @@ var ERROR_CORRECTION_LEVELS = {
   H: 4 // 30%
 };
 
+//      
+
 function isNumber(value) {
   return !Number.isNaN(parseInt(value, 10));
 }
@@ -80,14 +85,15 @@ function isInteger(value) {
 }
 
 var urlRegExp = {
-  shema: /((?:http|ftp)s?:\/\/)/,
+  scheme: /((?:http|ftp)s?:\/\/)/,
   domain: /(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)/,
   ip: /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
   port: /(?::\d+)/,
-  query: /(?:\/?|[/?]\S+)/
+  query: /(?:\/?|[/?]\S+)/,
+  composed: /.*/
 };
 
-urlRegExp.composed = new RegExp("^" + urlRegExp.shema.source + "?" + ("(?:" + urlRegExp.domain.source + "|localhost|" + urlRegExp.ip.source + ")") + (urlRegExp.port.source + "?") + (urlRegExp.query.source + "$"), "i");
+urlRegExp.composed = new RegExp("^" + urlRegExp.scheme.source + "?" + ("(?:" + urlRegExp.domain.source + "|localhost|" + urlRegExp.ip.source + ")") + (urlRegExp.port.source + "?") + (urlRegExp.query.source + "$"), "i");
 
 function validateUrl(url) {
   if (!urlRegExp.composed.test(url)) {
@@ -134,7 +140,7 @@ function validateVersionOption(version) {
 function validateLevelOption(level) {
   if (!ERROR_CORRECTION_LEVELS[level]) {
     var validValues = Object.keys(ERROR_CORRECTION_LEVELS).join(", ");
-    throw new Error("Invalid error correction level: " + this.value + ". " + ("Should be one of these: " + validValues));
+    throw new Error("Invalid error correction level: " + level + ". " + ("Should be one of these: " + validValues));
   }
 }
 
