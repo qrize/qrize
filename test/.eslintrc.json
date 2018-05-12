@@ -4,6 +4,8 @@
     "jest": true
   },
   "rules": {
-    "no-new": "off"
+    "no-new": "off",
+    "no-underscore-dangle": "off",
+    "no-console": "off"
   }
 }

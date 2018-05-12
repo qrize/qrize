@@ -12,24 +12,38 @@
     <button type="submit">Get QR</button>
   </form>
   <figure>
-    <figcaption>Generated QR</figcaption>
-    <div id="target"></div>
+    <figcaption>Generated IMG</figcaption>
+    <div id="target-img"></div>
+  </figure>
+  <figure>
+    <figcaption>Generated SVG</figcaption>
+    <div id="target-svg"></div>
+  </figure>
+  <figure>
+    <figcaption>Generated TABLE</figcaption>
+    <div id="target-table"></div>
   </figure>
 
   <script type='text/javascript' defer>
-
-    var qrize = new Qrize({
-      element: document.getElementById('target'),
-      cellSize: 5,
+    var setup = [
+      {type: 'createImg', options: { element: document.getElementById('target-img'), cellSize: 5 }},
+      {type: 'createSvg', options: { element: document.getElementById('target-svg'), cellSize: 5 }},
+      {type: 'createTable', options: { element: document.getElementById('target-table'), cellSize: 5 }}
+    ].map(function(item) {
+      item.qrize = new Qrize(item.options);
+      return item;
     });
 
     function onSubmit(event) {
       event.preventDefault();
-      qrize.createImg({
+
+      setup.forEach(function(item) {
+        item.qrize[item.type]({
         url: document.urlForm.elements.url.value,
         onSuccess: function(response) {
-          console.log(response);
-        }
+            console.log(response);
+          }
+        });
       });
     }
 

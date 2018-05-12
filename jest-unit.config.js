@@ -1,5 +1,6 @@
 module.exports = {
   verbose: true,
+  testMatch: ["**/test/unit/**/*.test.js"],
   collectCoverageFrom: ["src/**/*.js"],
   coverageThreshold: {
     global: {
