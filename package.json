@@ -1,6 +1,6 @@
 {
   "name": "qrize",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "JavaScript library for generating tiny QR codes of your web pages",
   "engines": {
     "npm": ">=4"
@@ -12,7 +12,7 @@
     "url": "https://github.com/qrize/qrize",
     "type": "git"
   },
-  "homepage": "http://qrize.me",
+  "homepage": "https://qrize.me",
   "keywords": [
     "qr",
     "code",
@@ -22,7 +22,7 @@
     "tiny",
     "small"
   ],
-  "author": "Sergey Goliney <sergey@goliney.com>",
+  "author": "Serhii Holinei <serhii@holinei.com>",
   "license": "MIT",
   "files": [
     "dist"
