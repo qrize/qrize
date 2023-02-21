@@ -32,7 +32,7 @@ Compare these QR codes that lead to the same [long address](https://www.amazon.c
 
 | Regular QR code :hankey:                                                            | QR code you get with qrize :+1:                                                                |
 |-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
-| ![Regular QR code](https://raw.githubusercontent.com/qrize/qrize/assets/big_qr.gif) | ![QR code you get with qrize](https://raw.githubusercontent.com/qrize/qrize/assets/qrized1.gif) |
+| ![Regular QR code](https://raw.githubusercontent.com/qrize/qrize/assets/big.png) | ![QR code you get with qrize](https://raw.githubusercontent.com/qrize/qrize/assets/small.png) |
 
 Having QR codes smaller makes it more reader-friendly, saves space on page and is awesome. Visit [qrize.me](https://qrize.me) for general information.
 
