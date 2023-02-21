@@ -1,3 +1,9 @@
+## 1.0.0 (February 21, 2023)
+
+BREAKING CHANGE:
+- Change API endpoint after migration to the DigitalOcean serverless functions
+
+
 ## 0.4.0 (January 8, 2017)
 
 - Use https instead of http

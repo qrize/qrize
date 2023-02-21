@@ -1,6 +1,6 @@
 import qrcode from 'qrcode-generator';
 
-var version = "0.4.0";
+var version = "1.0.0";
 
 //      
 
@@ -57,10 +57,12 @@ function getJSON(_ref3) {
 
 //      
 
+var API_ROOT = "https://qrize.me/f/p/r";
+
 var ENDPOINTS = {
-  getHash: "https://qrize.me/get-hash/<url>",
-  getUrl: "https://qrize.me/get-url/<hash>",
-  redirector: "https://qrize.me/<hash>"
+  getHash: API_ROOT + "/?url=<url>",
+  getUrl: API_ROOT + "/?hash=<hash>",
+  redirector: API_ROOT + "/<hash>"
 };
 
 var ERROR_CORRECTION_LEVELS = {

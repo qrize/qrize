@@ -1,9 +1,11 @@
 // @flow
 
+export const API_ROOT = "https://qrize.me/f/p/r";
+
 export const ENDPOINTS = {
-  getHash: "https://qrize.me/get-hash/<url>",
-  getUrl: "https://qrize.me/get-url/<hash>",
-  redirector: "https://qrize.me/<hash>",
+  getHash: `${API_ROOT}/?url=<url>`,
+  getUrl: `${API_ROOT}/?hash=<hash>`,
+  redirector: `${API_ROOT}/<hash>`,
 };
 
 export const ERROR_CORRECTION_LEVELS = {
